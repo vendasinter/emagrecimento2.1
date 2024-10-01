@@ -1,0 +1,83 @@
+<style>body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#chatbox {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.message {
+    margin: 5px 0;
+}
+
+.user {
+    color: blue;
+}
+
+.bot {
+    color: green;
+}
+</style><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT - Seu Assistente Virtual</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ChatGPT - Seu Assistente Virtual</h1>
+        <div id="chatbox"></div>
+        <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
+        <button id="sendButton">Enviar</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+<script>document.getElementById("sendButton").addEventListener("click", async function() {
+    const userInput = document.getElementById("userInput").value;
+    if (userInput.trim() === "") return;
+
+    displayMessage(userInput, 'user');
+
+    const botResponse = await getBotResponse(userInput);
+    displayMessage(botResponse, 'bot');
+
+    document.getElementById("userInput").value = "";
+});
+
+async function getBotResponse(userInput) {
+    // Simulação de resposta
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(`Você disse: "${userInput}"`);
+        }, 1000);
+    });
+}
+
+function displayMessage(message, sender) {
+    const chatbox = document.getElementById("chatbox");
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender);
+    messageDiv.textContent = message;
+    chatbox.appendChild(messageDiv);
+    chatbox.scrollTop = chatbox.scrollHeight; // Rolagem automática
+}
+</script>
